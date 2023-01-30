@@ -148,7 +148,7 @@
       if (firstRun) {
         firstRun = !firstRun
       }
-      fetch("http://nanoweb.ddns.net:8456")
+      fetch("https://nanoweb.ddns.net:5000/jsonparser")
         .then(res => {
           if (!res.ok) {
             throw Error(res.statusText);
