@@ -47,7 +47,7 @@
       width: 26px;
       left: 4px;
       bottom: 4px;
-      background-color: var(--background);
+      background-color: var(--shiftcol);
       -webkit-transition: .4s;
       transition: .4s;
     }
@@ -96,7 +96,8 @@
       --h2text: rgb(102, 102, 102);
       --swtichcol: rgb(97, 97, 97);
       --bober: #2196F3;
-      --fnuylink: url("https://cdn.discordapp.com/attachments/921945359243153448/1069579822445101066/RalsHappyPX.png")
+      --fnuylink: url("https://cdn.discordapp.com/attachments/921945359243153448/1069579822445101066/RalsHappyPX.png");
+      --shiftcol: rgb(255, 255, 255);
     }
 
     /* Dark Colors */
@@ -107,13 +108,16 @@
       --h2text: rgb(196, 196, 196);
       --swtichcol: rgb(179, 179, 179);
       --bober: rgb(172, 31, 207);
-      --fnuylink: url("https://cdn.discordapp.com/attachments/1066435244208701500/1069701881011642408/ralszi.png")
+      --fnuylink: url("https://cdn.discordapp.com/attachments/1066435244208701500/1069701881011642408/ralszi.png");
+      --shiftcol: rgb(255, 255, 255);
     }
 
     html,
     body {
       background: var(--background);
       color: var(--color);
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     .ralsei {
@@ -121,15 +125,23 @@
     }
 
     img {
-      filter: drop-shadow(1px 0 0 white) 
-        drop-shadow(0 1px 0 white)
-        drop-shadow(-1px 0 0 white) 
-        drop-shadow(0 -1px 0 white);
+      filter: drop-shadow(1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 -1px 0 white);
+    }
+
+    .drkmd-toggle-button{
+      scale: 150%;
+      -webkit-user-select: none;
+      /* Safari */
+      -ms-user-select: none;
+      /* IE 10 and IE 11 */
+      user-select: none;
+      /* Standard syntax */
     }
   </style>
 </head>
 
 <body>
+  <div style="scale: 140%;">
   <div class="center">
     <img width="100" height="100" style="filter: invert(var(--InvertVal));"
       src="https://cdn.discordapp.com/attachments/1066435244208701500/1069714821236408431/exportteddd.svg"
@@ -149,6 +161,7 @@
     </div>
     <footer><img class="ralsei" id="ralsei" alt="Hey!"
         style="image-rendering: pixelated; scale: 300%; margin-top: 4rem;"></footer>
+  </div>
   </div>
   <!-- <script>
     const url = "http://192.168.23.17";
