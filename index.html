@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Climate Station</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans&display=swap" rel="stylesheet">
+  <style>
+    .center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    #data h2 {
+      color: gray;
+    }
+
+    #data h2 span {
+      color: black;
+    }
+
+    .grid-parent {
+      display: grid;
+      grid-template-columns: 1fr 1fr
+    }
+  </style>
+</head>
+
+<body>
+  <div class="center">
+    <img src="https://cdn.discordapp.com/attachments/1045458359840682126/1069536633474519061/icons8-weather-station-wind-96.png" alt="Weather Station Icon">
+    <h1>My Bedroom's Weather Station</h1>
+    <div id="data">
+      Loading...
+    </div>
+    <div class='parent grid-parent'>
+        <h3 style="white-space: nowrap; display: inline-grid;">Auto Refresh</h3>
+      <div id="toggle" style="margin-top: 5%; margin-left: 5%;">
+        <label class="switch" style="white-space: nowrap; display: inline-grid;">
+          <input type="checkbox" id="autoRefresh">
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <footer><img src="https://cdn.discordapp.com/attachments/921945359243153448/1069579822445101066/RalsHappyPX.png" alt="Hey!" style="image-rendering: pixelated; scale: 200%; padding-top: 4rem;"> </footer>
+  </div>
+  <!-- <script>
+    const url = "http://192.168.23.17";
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const { temp, humd, ppm } = data;
+        document.querySelector("#data").innerHTML = `
+          <h2><span>🌡️</span> Temperature: <span>${temp.toFixed(2)}°C</span></h2>
+          <h2><span>🧊</span> Humidity: <span>${humd.toFixed(2)}%</span></h2>
+          <h2><span>🌫️</span> CO2 PPM: <span>${ppm}</span></h2>
+        `;
+      })
+      .catch(error => {
+        document.querySelector("#data").innerHTML = `
+            <h1>No contact to climate station, 404</h1>
+          `;
+      });
+  </script> -->
+  <script>
+    let firstRun = true;
+    const toggle = document.querySelector("#autoRefresh");
+    let autoRefresh = false;
+
+    toggle.addEventListener("change", function () {
+      autoRefresh = !autoRefresh;
+    });
+
+    function fetchData() {
+      if (!autoRefresh && !firstRun) {
+        return;
+      }
+      if (firstRun) {
+        firstRun = !firstRun
+      }
+      fetch("http://nanoweb.ddns.net:8456")
+        .then(res => {
+          if (!res.ok) {
+            throw Error(res.statusText);
+          }
+          return res.json();
+        })
+        .then(data => {
+          const { temp, humd, ppm } = data;
+          document.querySelector("#data").innerHTML = `
+          <h2><span>🌡️</span> Temperature: <span>${temp.toFixed(2)}°C</span></h2>
+          <h2><span>🧊</span> Humidity: <span>${humd.toFixed(2)}%</span></h2>
+          <h2><span>🌫️</span> CO2 PPM: <span>${ppm}</span></h2>
+          `;
+        })
+        .catch(error => {
+          document.querySelector("#data").innerHTML = `
+            <h1>No contact to climate station, 404</h1>
+          `;
+        });
+    }
+    fetchData();
+    setInterval(fetchData, 3000);
+  </script>
+</body>
+
+</html>
