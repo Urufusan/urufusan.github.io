@@ -11,7 +11,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 70vh;
+      height: 90vh;
       font-family: 'Google Sans', sans-serif;
     }
 
@@ -35,7 +35,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      background-color: var(--swtichcol);
       -webkit-transition: .4s;
       transition: .4s;
     }
@@ -47,17 +47,17 @@
       width: 26px;
       left: 4px;
       bottom: 4px;
-      background-color: white;
+      background-color: var(--background);
       -webkit-transition: .4s;
       transition: .4s;
     }
 
     input:checked+.slider {
-      background-color: #2196F3;
+      background-color: var(--bober);
     }
 
     input:focus+.slider {
-      box-shadow: 0 0 1px #2196F3;
+      box-shadow: 0 0 1px var(--bober);
     }
 
     input:checked+.slider:before {
@@ -76,29 +76,70 @@
     }
 
     #data h2 {
-      color: gray;
+      color: var(--h2text);
     }
 
     #data h2 span {
-      color: black;
+      color: var(--color);
     }
 
     .grid-parent {
       display: grid;
       grid-template-columns: 1fr 1fr
     }
+
+    /* Light Colors*/
+    .theme-light {
+      --background: #fff;
+      --color: #000;
+      --InvertVal: 0;
+      --h2text: rgb(102, 102, 102);
+      --swtichcol: rgb(97, 97, 97);
+      --bober: #2196F3;
+      --fnuylink: url("https://cdn.discordapp.com/attachments/921945359243153448/1069579822445101066/RalsHappyPX.png")
+    }
+
+    /* Dark Colors */
+    .theme-dark {
+      --background: #000;
+      --color: #fff;
+      --InvertVal: 1;
+      --h2text: rgb(196, 196, 196);
+      --swtichcol: rgb(179, 179, 179);
+      --bober: rgb(172, 31, 207);
+      --fnuylink: url("https://cdn.discordapp.com/attachments/1066435244208701500/1069701881011642408/ralszi.png")
+    }
+
+    html,
+    body {
+      background: var(--background);
+      color: var(--color);
+    }
+
+    .ralsei {
+      content: var(--fnuylink)
+    }
+
+    img {
+      filter: drop-shadow(1px 0 0 white) 
+        drop-shadow(0 1px 0 white)
+        drop-shadow(-1px 0 0 white) 
+        drop-shadow(0 -1px 0 white);
+    }
   </style>
 </head>
 
 <body>
   <div class="center">
-    <img src="https://cdn.discordapp.com/attachments/1045458359840682126/1069536633474519061/icons8-weather-station-wind-96.png" alt="Weather Station Icon">
+    <img width="100" height="100" style="filter: invert(var(--InvertVal));"
+      src="https://cdn.discordapp.com/attachments/1066435244208701500/1069714821236408431/exportteddd.svg"
+      alt="Weather Station Icon">
     <h1>My Bedroom's Weather Station</h1>
     <div id="data">
       Loading...
     </div>
     <div class='parent grid-parent'>
-        <h3 style="white-space: nowrap; display: inline-grid;">Auto Refresh</h3>
+      <h3 style="white-space: nowrap; display: inline-grid;">Auto Refresh</h3>
       <div id="toggle" style="margin-top: 5%; margin-left: 5%;">
         <label class="switch" style="white-space: nowrap; display: inline-grid;">
           <input type="checkbox" id="autoRefresh">
@@ -106,7 +147,8 @@
         </label>
       </div>
     </div>
-    <footer><img src="https://cdn.discordapp.com/attachments/921945359243153448/1069579822445101066/RalsHappyPX.png" alt="Hey!" style="image-rendering: pixelated; scale: 200%; padding-top: 4rem;"> </footer>
+    <footer><img class="ralsei" id="ralsei" alt="Hey!"
+        style="image-rendering: pixelated; scale: 300%; margin-top: 4rem;"></footer>
   </div>
   <!-- <script>
     const url = "http://192.168.23.17";
@@ -132,6 +174,7 @@
           `;
       });
   </script> -->
+  <script src="https://cdn.jsdelivr.net/npm/drkmd-js/dist/drkmd-js.min.js" data-drkmd-attach></script>
   <script>
     let firstRun = true;
     const toggle = document.querySelector("#autoRefresh");
